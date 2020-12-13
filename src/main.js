@@ -4,19 +4,31 @@ let accountsView = document.querySelector("#accounts-view");
 let addAccountsView = document.querySelector("#add-accounts-view");
 let views = document.querySelectorAll(".view");
 
-for (let i = 0; i < links.length; i++) {
-  links.addEventListener("click", showView);
-}
+// for (let i = 0; i < links.length; i++) {
+//   links.addEventListener("click", showView);
+// }
 
-function showView(e) {
+// function showView(e){
+//   e.preventDefault();
+//   for (let i = 0; i < views.length; i++) {
+//     views[i].style.display = "none";
+//   }
+
+//   let id = `#${e.target.getAttribute("href")}`;
+//   document.querySelector(id).style.display = "block";
+// }
+
+document.querySelector("#add-accounts-view-btn").addEventListener("click", function(e){
   e.preventDefault();
-  for (let i = 0; i < views.length; i++) {
-    views[i].style.display = "none";
-  }
+  accountsView.style.display = "none";
+  addAccountsView.style.display = "block";
+})
 
-  let id = `#${this.getAttribute("href")}`;
-  document.querySelector(id).style.display = "block";
-}
+document.querySelector("#accounts-view-btn").addEventListener("click", function(e){
+  e.preventDefault();
+  accountsView.style.display = "block";
+  addAccountsView.style.display = "none";
+})
 
 function createAccountsTable() {
   for (i = 0; i < db.length; i++) {

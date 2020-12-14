@@ -42,12 +42,25 @@ function createAccountsTable() {
       <td>${account.lastName}</td>
       <td>${account.address}</td>
       <td>${account.job}</td>
-      <td><button class="btn btn-sm btn-warning from-control">Edit</button></td>
-      <td><button class="btn btn-sm btn-warning from-control">Delete</button></td>
+      <td><button id="edit${i}" class=btn btn-sm btn-warning from-control">Edit</button></td>
+      <td><button id="delete${i}" class="btn btn-sm btn-warning from-control" style="background-color: red">Delete</button></td>
     </tr>
     `
   }
   accountsTableBody.innerHTML = html;
+
+  // eventListeneri prave problem
+  for (let i = 0; i < db[i].length; i++) {
+    document.querySelector(`#edit${i}`).addEventListener("click", editAccount);
+    document.querySelector(`#delete${i}`).addEventListener("click", deleteAccount);
+  }
+}
+
+function editAccount(){
+
+}
+function deleteAccount(){
+
 }
 
 createAccountsTable();

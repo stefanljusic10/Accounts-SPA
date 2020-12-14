@@ -12,7 +12,7 @@ let saveBtn = document.querySelector("#save-btn");
 
 saveBtn.addEventListener("click", saveAccount);
 
-function saveAccount(){
+function saveAccount() {
   const newAccount = {
     id: db.length + 1,
     firstName: firstNameInput.value,
@@ -26,35 +26,38 @@ function saveAccount(){
   lastNameInput.value = "";
   addressInput.value = "";
   jobInput.value = "";
-  while (accountsTableBody.firstChild){
-    accountsTableBody.removeChild(accountsTableBody.firstChild);
-  }
   createAccountsTable();
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";
 }
 
 function createAccountsTable() {
+  let html = ``;
   for (i = 0; i < db.length; i++) {
-    const accounts = db[i];
-    let tr = document.createElement("tr");
-    for (const key in accounts) {
-      let td = document.createElement("td");
-      td.textContent = accounts[key];
-      tr.appendChild(td);
-    }
-    accountsTableBody.appendChild(tr);
+    const account = db[i];
+    html += `
+    <tr>
+      <td>${i+1}</td>
+      <td>${account.firstName}</td>
+      <td>${account.lastName}</td>
+      <td>${account.address}</td>
+      <td>${account.job}</td>
+      <td><button class="btn btn-sm btn-warning from-control">Edit</button></td>
+      <td><button class="btn btn-sm btn-warning from-control">Delete</button></td>
+    </tr>
+    `
   }
+  accountsTableBody.innerHTML = html;
 }
 
 createAccountsTable();
-document.querySelector("#add-accounts-view-btn").addEventListener("click", function(e){
+document.querySelector("#add-accounts-view-btn").addEventListener("click", function (e) {
   e.preventDefault();
   accountsView.style.display = "none";
   addAccountsView.style.display = "block";
 })
 
-document.querySelector("#accounts-view-btn").addEventListener("click", function(e){
+document.querySelector("#accounts-view-btn").addEventListener("click", function (e) {
   e.preventDefault();
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";

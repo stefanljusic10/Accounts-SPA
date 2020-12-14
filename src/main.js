@@ -26,31 +26,28 @@ function saveAccount(){
   lastNameInput.value = "";
   addressInput.value = "";
   jobInput.value = "";
+  while (accountsTableBody.firstChild){
+    accountsTableBody.removeChild(accountsTableBody.firstChild);
+  }
   createAccountsTable();
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";
 }
 
-// Ne radi preventDefault() iz nekog razloga
-// Ne sprecava eventListener da ode na drugi link
+function createAccountsTable() {
+  for (i = 0; i < db.length; i++) {
+    const accounts = db[i];
+    let tr = document.createElement("tr");
+    for (const key in accounts) {
+      let td = document.createElement("td");
+      td.textContent = accounts[key];
+      tr.appendChild(td);
+    }
+    accountsTableBody.appendChild(tr);
+  }
+}
 
-// for (let i = 0; i < links.length; i++) {
-//   links.addEventListener("click", showView);
-// }
-// function showView(e){
-//   for (let i = 0; i < views.length; i++) {
-//     views[i].style.display = "none";
-//   }
-//   if(e instanceof Event){
-//     e.preventDefault();
-//     let id = `#${e.target.getAttribute("href")}`;
-//     document.querySelector(id).style.display = "block";
-//   }
-//   else {
-//     document.querySelector(e).style.display = "block";
-//   }
-// }
-
+createAccountsTable();
 document.querySelector("#add-accounts-view-btn").addEventListener("click", function(e){
   e.preventDefault();
   accountsView.style.display = "none";
@@ -62,19 +59,3 @@ document.querySelector("#accounts-view-btn").addEventListener("click", function(
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";
 })
-
-function createAccountsTable() {
-  for (i = 0; i < db.length; i++) {
-    const accounts = db[i];
-    let tr = document.createElement("tr");
-
-    for (const key in accounts) {
-      let td = document.createElement("td");
-      td.textContent = accounts[key];
-      tr.appendChild(td);
-    }
-    accountsTableBody.appendChild(tr);
-  }
-}
-
-createAccountsTable();

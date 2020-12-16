@@ -2,7 +2,7 @@ window.addEventListener("beforeunload", save);
 let db = [];
 
 if(localStorage.db){
-  db = JSON.parse(localStorage.db);
+  db = JSON.parse(localStorage.getItem("accounts"));
 }
 
 let accountsTableBody = document.querySelector("#accounts-table-body");
@@ -118,5 +118,6 @@ document.querySelector("#accounts-view-btn").addEventListener("click", function 
 })
 
 function save(){
-  localStorage.db = JSON.stringify(db);
+  let dbStore = JSON.stringify(db);
+  localStorage.setItem("accounts", dbStore);
 }

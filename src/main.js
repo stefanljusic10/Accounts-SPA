@@ -7,8 +7,12 @@ let lastNameInput = document.querySelector('[placeholder="Last Name"]');
 let addressInput = document.querySelector('[placeholder="Address"]');
 let jobInput = document.querySelector('[placeholder="Job"]');
 let saveBtn = document.querySelector("#save-btn");
-let editAccountsView = document.querySelector("#edit-sccounts-view");
+let editAccountsView = document.querySelector("#edit-accounts-view");
 let editBtn = document.querySelector("#edit-btn");
+let firstNameEdit = document.querySelector("#first-name-edit");
+let lastNameEdit = document.querySelector("#last-name-edit");
+let addressEdit = document.querySelector("#address-edit");
+let jobEdit = document.querySelector("#job-edit");
 
 saveBtn.addEventListener("click", saveAccount);
 
@@ -55,9 +59,19 @@ function createAccountsTable() {
   }
 }
 
-function editAccount(){
+function editAccount(e){
   accountsView.style.display = "none";
   addAccountsView.style.display = "none";
+  editAccountsView.style.display = "block";
+
+  let idEdit = e.target.getAttribute("id");
+  idEdit = idEdit.replace("edit", "");
+  let editAccount = db[idEdit];
+
+  firstNameEdit.value = editAccount.firstName;
+  lastNameEdit.value = editAccount.lastName;
+  addressEdit.value = editAccount.address;
+  jobEdit.value = editAccount.job;
 }
 function deleteAccount(e){
   let idDelete = e.target.getAttribute("id");

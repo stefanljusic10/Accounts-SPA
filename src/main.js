@@ -1,4 +1,10 @@
+window.addEventListener("beforeunload", save);
 let db = [];
+
+if(localStorage.db){
+  db = JSON.parse(localStorage.db);
+}
+
 let accountsTableBody = document.querySelector("#accounts-table-body");
 let accountsView = document.querySelector("#accounts-view");
 let addAccountsView = document.querySelector("#add-accounts-view");
@@ -13,8 +19,10 @@ let firstNameEdit = document.querySelector("#first-name-edit");
 let lastNameEdit = document.querySelector("#last-name-edit");
 let addressEdit = document.querySelector("#address-edit");
 let jobEdit = document.querySelector("#job-edit");
+let idEdit;
 
 saveBtn.addEventListener("click", saveAccount);
+editBtn.addEventListener("click", saveEditedAccount);
 
 function saveAccount() {
   const newAccount = {
@@ -33,6 +41,22 @@ function saveAccount() {
   createAccountsTable();
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";
+}
+
+function saveEditedAccount(){
+  const editedAccount = {
+    id: idEdit,
+    firstName: firstNameEdit.value,
+    lastName: lastNameEdit.value,
+    address: addressEdit.value,
+    job: jobEdit.value
+  }
+
+  db[idEdit] = editedAccount;
+  createAccountsTable();
+  accountsView.style.display = "block";
+  addAccountsView.style.display = "none";
+  editAccountsView.style.display = "none";
 }
 
 function createAccountsTable() {
@@ -64,7 +88,7 @@ function editAccount(e){
   addAccountsView.style.display = "none";
   editAccountsView.style.display = "block";
 
-  let idEdit = e.target.getAttribute("id");
+  idEdit = e.target.getAttribute("id");
   idEdit = idEdit.replace("edit", "");
   let editAccount = db[idEdit];
 
@@ -92,3 +116,7 @@ document.querySelector("#accounts-view-btn").addEventListener("click", function 
   accountsView.style.display = "block";
   addAccountsView.style.display = "none";
 })
+
+function save(){
+  localStorage.db = JSON.stringify(db);
+}

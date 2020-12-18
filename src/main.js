@@ -24,6 +24,23 @@ let idEdit;
 saveBtn.addEventListener("click", saveAccount);
 editBtn.addEventListener("click", saveEditedAccount);
 
+// function formValidation() {
+//   let inputsArray = document.getElementsByTagName("input");
+//   let isValid = true;
+
+//   for (let i = 0; i < inputsArray.length; i++) {
+//     if(!inputsArray[i].value){
+//       isValid = false;
+//       inputsArray[i].setAttribute("placeholder", "Please fill this field");
+//       break;
+//     }
+//   }
+
+//   if(isValid === true){
+//     console.log("Sve ok!")
+//   }
+// }
+
 function saveAccount() {
   const newAccount = {
     id: db.length + 1,
